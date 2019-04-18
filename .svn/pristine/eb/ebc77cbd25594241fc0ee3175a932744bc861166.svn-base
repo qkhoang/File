@@ -1,0 +1,42 @@
+package magicUWE4SDE;
+
+import java.io.File;
+
+import magicUWE.settings.GlobalConstants;
+import magicUWE.shared.MessageWriter;
+
+import org.apache.log4j.Logger;
+
+import com.nomagic.magicdraw.core.Application;
+
+public class SDEClient {
+	private static final Logger logger = Logger.getLogger(SDEClient.class);
+	private final Communicator comm;
+
+	public SDEClient() {
+		this.comm = new Communicator(GlobalConstants.SDE_PORT);
+	}
+
+	/**
+	 * send project's file to SDE server
+	 */
+	public void sendProjectFilePath() {
+		File f;
+		try {
+			f = Exporter.exportEMFUML(Application.getInstance().getProject());
+		} catch (Exception e1) {
+			MessageWriter.showError("Exporting the project files was not possible.\n Error: \"" + e1.getMessage() + "\"", logger);
+			return;
+		}
+
+		String umlFile = f.getAbsolutePath();
+		try {
+			comm.sendAndReceiveOK(umlFile);
+			MessageWriter.log("Project was successfully sent to the SDE.", logger);
+		} catch (Exception e) {
+			String msg = "Sending project to the SDE was not possible.\n Error: \"" + e.getMessage() + "\"";
+			MessageWriter.log(msg, null);
+			MessageWriter.showError(msg, logger);
+		}
+	}
+}

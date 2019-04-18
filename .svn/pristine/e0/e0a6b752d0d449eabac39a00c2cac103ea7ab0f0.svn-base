@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!-- The English langpack customized for MagicUWE -->
+
+<langpack>
+
+    <!-- The strings for the 'official' IzPack plugins -->
+    
+<!-- MagicDraw dir _should_ exist -->
+    <str id="TargetPanel.warn" 
+         txt="I hope you've chosen the MagicDraw root directory. If you have an old version of the plugin MagicUWE installed in this directory, it will be overwritten. Are you sure you want to install here?"/>
+    
+	<str id="TargetPanel.createdir" txt="Warning: the MagicDraw directory should exist! Create the target directory anyway? " />
+	
+</langpack>

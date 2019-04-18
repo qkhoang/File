@@ -1,0 +1,48 @@
+package magicUWE.actions.menubar;
+
+import java.awt.event.ActionEvent;
+
+import magicUWE.shared.MessageWriter;
+
+
+import com.nomagic.magicdraw.actions.MDAction;
+
+/**
+ * This class stores the current version number of MagicUWE and shows it when
+ * executed.
+ * 
+ * @author Petar Blagoev
+ * @author Marianne Busch
+ */
+public class AboutUweAction extends MDAction {
+
+	private static final long serialVersionUID = 1L;
+
+	private static final String uweVersion = "Version 1.3.8";
+
+	/**
+	 * AboutUweAction
+	 * @param name
+	 * @param mnemonic
+	 * @param group
+	 */
+	public AboutUweAction(String name, int mnemonic, String group) {
+		super(name, name, mnemonic, group);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e){
+		//showing information
+		MessageWriter.showMessage(
+        		"<html>" +
+        		"<td style='font-size:14; bold' align='center'>" +  " UWE Plugin MagicUWE (" + uweVersion + ")"  + "</td>" +
+        		"<br/><td style='font-size:10;'></td>" +
+        		"<br/><td style='font-size:11;'>LMU Munich, Germany - Institute for Informatics - PST – Web Engineering Group</td>" +
+        		"<br/><td style='font-size:10;'>http://uwe.pst.ifi.lmu.de/</td>" +
+        		"<br/><td style='font-size:5;'></td>" +
+        		"<br/><td style='font-size:11;'>Prof. Dr. Alexander Knapp, Dr. Nora Koch</td>" +
+        		"<br/><td style='font-size:11;'>Marianne Busch, Sergej Kozuruba, Sonja Harrer, Petar Blagoev</td>" +
+        		"<br/><td style='font-size:10;'>uwe@pst.ifi.lmu.de</td>" +
+        		" </html>", null);
+	}
+}

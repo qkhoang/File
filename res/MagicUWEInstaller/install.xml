@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!-- 
+    An installation file for MagicUWE.
+    IzPack http://izpack.org/ is an installer for java-projects, 
+	it has to be installed to build installer for MagicUWE.
+    
+	To build the installer-jar use ant with the build.xml file (e.g. target buildInstallerFull)
+-->
+
+<installation version="1.0">
+
+    <info>
+        <appname>UWE Plugin for MagicDraw (MagicUWE)</appname>
+        <appversion> version: 1.5.0</appversion>
+        <authors>
+            <author name="Lehr- und Forschungseinheit für Programmierung und Softwaretechnik" email=""/>
+            <author name="Ludwig-Maximilians-Universität München, Institut für Informatik" email=""/>
+            <author name="Prof. Dr. Alexander Knapp, Dr. Nora Koch" email="uwe@pst.ifi.lmu.de"/>
+            <author name="Marianne Busch" email=""/>
+            <author name="Sergej Kozuruba" email=""/>
+            <author name="Sonja Harrer" email="" />
+            <author name="Petar Blagoev" email=""/>
+        </authors>
+        <url>http://uwe.pst.ifi.lmu.de/toolMagicUWE.html</url>
+        <uninstaller write="no"/>
+    </info>
+    
+    <!-- 
+        The gui preferences indication.
+        Sets the installer window to 640x480. It will be able to change the size.
+    -->
+    <guiprefs width="640" height="480" resizable="yes"/>
+    
+    <!-- 
+        The locale section.
+    -->
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+    
+    <!-- 
+        The resources section.
+        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+    <resources>
+        <res id="LicencePanel.licence" src="plugins/de.lmu.ifi.pst.uwe.MagicUWE/Licence.txt"/>
+        <res id="InfoPanel.info" src="plugins/de.lmu.ifi.pst.uwe.MagicUWE/Readme.txt"/>
+        <res id="TargetPanel.dir" src="conf/TargetPanel.dir"/>
+        <res id="CustomLangpack.xml_eng" src="conf/CustomLangpack_eng.xml"/>
+    </resources>
+    
+    <!-- 
+        The panels section.
+        We indicate here which panels we want to use. The order will be respected.
+    -->
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="TargetPanel"/> 
+        <panel classname="InstallPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+    
+    <!-- 
+        The packs section.
+        We specify here our packs.
+    -->
+    <packs>
+    	<!-- In fileset defaultexcludes="yes" is default, eg *.svn dirs are excluded -->
+        <pack name="Base" required="yes">
+            <description>The base files</description>
+            <fileset dir="plugins" targetdir="$INSTALL_PATH/plugins" override="true"/>
+            <fileset dir="profiles" targetdir="$INSTALL_PATH/profiles" override="true"/>
+            <fileset dir="data" targetdir="$INSTALL_PATH/data" override="true"/>
+       	</pack>
+      <!-- do not forget to disable the following packs, if you don't want to distribute src and docs
+        <pack name="Docs" required="no">
+            <description>The documentation</description>
+            <fileset dir="doc" targetdir="$INSTALL_PATH/plugins/MagicUWE/doc" override="true"/>
+        </pack>
+        <pack name="Sources" required="no">
+            <description>The sources</description>
+            <fileset dir="src" targetdir="$INSTALL_PATH/plugins/MagicUWE/src" override="true"/>
+        </pack>
+        -->
+    </packs>
+
+</installation>

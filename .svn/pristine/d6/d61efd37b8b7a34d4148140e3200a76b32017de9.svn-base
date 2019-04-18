@@ -1,0 +1,266 @@
+
+/**
+ * Should give an overview of already implemented tasks
+ * and those which should be implemented in the future.<br/>
+ * Language: German
+ *
+ *  
+ * @author Marianne Busch
+ * @author Petar Blagoev
+ */
+public class ToDo {	
+	/*
+	 * Grundsätze an die ich mich (teilweise) gehalten habe ;-)
+	 * - Alle Dateien außer diese sind mit Strg + Umschalt + F auf 120 Zeichen(!) eclipse-autoformatiert
+	 * - Bitte Assoziations-Variablen nicht "ass" nennen! (findRightPositionToInsertIntoAss ist möglicherweise doppeldeutig)
+	 * - Warnungen (in eclipse Window/Preferences) einschalten 
+	 *   (Ignore nur bei: Unqualified access to instance field, Parameter assignment, non-externalized Strings, Boxing and Unboxing conversions)
+	 * - Den Nutzer bei unvernünftigen Aktionen drauf hinweisen, aber ihm die Entscheidung lassen
+	 * - Die wichtigesten Sachen in der Konfigurationsdatei vom Nutzer ggf verstellen lassen
+	 * - MagicUWE.mdzip sollte immer dem aktuellen Stand des Codes entsprechen
+	 */
+
+	/**<b>TO DO</b> Liste von zu erledigenden Aufgaben.
+	 * <p><i>Teilaufgaben stehen als Kommentar im Code (s. eclipse-Tasks), 
+	 * markiert je nach Priorität durch "F I X M E", "T O D O" und "M A Y B E"</i></p>
+	 * 
+	 * <em>Nice to have - Ideensammlung für neue Features:</em><br/>
+	 * 
+	 * aktuell:<br/>
+	 * - <br/>
+	 * 
+	 * generell:<br/>
+	 * - Transformationserweiterung, Konsistenzcheck (s. UWE Consistency)<br/>
+	 *
+	 * 
+	 */ 
+	@SuppressWarnings("unused")
+	private void doIt(){
+		// not for execution
+	}
+	
+	//~~~--~~-~-~~--~~~
+	
+	/**<b>done</b> Hinzugefügte Funktionalität. <i>(von unten nach oben lesen)</i><br/>
+	 * 
+	 * - Version 1.3.6 inklusive SDE Menü, um Projectfile an den SDE Server zu schicken 
+	 * 
+	 * - Version 1.3.5 inklusive Sergej Kozurubas Erweiterungen für Requirements fürs UWE Profil 2.1 
+	 * 
+	 * - Version 1.3.4 für MagicDraw 16.8
+	 * - Stereotypes from toolbar
+	 * - Tags boolean / string context menus
+	 * - new Diagram / create models
+	 * - setzen von default stereotypen in NavStateMachines (navigationalNode innerhalb)
+  	 * - Vererbung von Stereotypen per Tool in UseCases
+	 * - Stereotypen kopieren von Submachine State <-> State Machine
+	 * 
+	 * - Version 1.3.3 für MagicDraw 16.8 inklusive Sonja Harrers Erweiterungen für RIAs
+	 * 
+	 * - Version 1.3.2 für MagicDraw 16.8
+	 * - Version 1.3.1 für MagicDraw 16.6
+	 * - Synchronizeknopf für Tags bei properties vs ihren klassen<br/>
+	 * - Stereotype wird zu Property und Klasse hinzugefügt<br/>
+	 * - GUI mit Delete Knopf für String-Tags-Kontextmenue<br/>
+	 * - Statt einmaligem Erscheinen der Hinweis-Messageboxes, Boxen mit Häkchen fürs Wiederanzeigen anbieten (pro Sitzung)<br/>
+	 * - Model-sterotypen checken statt Substrings + Refactoring bzgl MsgBoxes + Texte anpassen<br/>
+	 * - Version 1.3.0
+	 * - einige Tags aus dem UWE Profil für die Kontextmenüs ausgewählt<br/>
+	 * - Kontextmenü auch mit Input-Field<br/>
+	 * - Kontextmenü selektiv je nach markiertem Element anzeigen! (Wird aus den Stereotypen bzw Tag-Properties ermittelt)<br/>
+	 * - Kontextmenüs auch auf Properties<br/>
+	 * - Kontextmenü auch in Presentation, Tagged values für boolean aus Enums generiert<br/>
+	 * - Refactoring Enum Interfaces: UWEStereotypeOfElWithSecondKey extends UWEStereotypeOfElement extends UWEStereotypeWithKey<br/>
+	 * - User action  + sys => Toolbar in Action Diagrams<br/>
+	 * - neue MODELs statt packages und auch mit richtigem UWE Stereotyp<br/>
+	 * - Neu - UWE mit oder ohne Untermenü (in Konfig-Datei konfigurierbar)<br/>
+	 * - Einfügen von Contextmenüs in allen Diagrammarten möglich (nicht nur Navigation)<br/>
+	 * - Neue Stereotypen eingefügt (s. Enums und Config-File)<br/>
+	 * - Anpassung an das UWEProfil 1.8<br/>
+	 * - Anpassung auf MagicDraw 16.0 -> MagicUWE v 1.2.7<br/>
+	 * - Bugfix bzgl Package-Transformationen und Elemente richtig zählen -> Version 1.2.6<br/>
+	 * 
+	 * <p><i><center>--- Weiterführung des Projekts über die Projektarbeit hinaus ---</center></i></p>
+	 * 
+	 * - Versionsnummer auf 1.2.5 geändert. Version 1.2 ist die Version die in der Projektarbeit beschrieben ist, Version 1.2.5 beinhaltet darüberhinaus noch den folgenden Punkt:<br/>
+	 * - Zusatzfeature: Profil zunächst im Projektordner suchen, erst dann im MagicDraw-Profile-Verzeichnis<br/>
+	 * - Debugging-Phase: Beim "insert Query" auf beiden Seiten processLinks<br/>
+	 * - Designentscheidung: bei Transformationen nur Klassen kopieren wenn eine mit gleichem Namen noch nicht besteht ist nicht gut,
+	 *   weil man nicht rausbekommt, ob gleich benannte Klassen in ggf. nicht mehr existenten, früher transformierten Diagrammen die selben Klassenobjekte waren.
+	 *   Man könnte höchstens drauf achten, wenn der User im Containment Tree mehrere Diagramme auf einmal zur Transformation auswählt, wäre jedoch für den User undurchsichtig<br/>
+	 * - DiagramContextAssocAction überarbeitet (Klassen-namen, Einfüge-richtungen, etc)<br/>
+	 * - ein paar Kleinigkeiten (Ok Button, Plural s, Bug in DrawPropertyAction, Warnungen bei den inserts)<br/>
+	 * - Rollennamen bei insert auf einer Assoziation -> Index-klassenname etc (keine gute Lösung ohne immer Richtungsabfrage)<br/>
+	 * - Komposition an der Head-Klasse bei insert menu<br/>
+	 * - Index, query und guided tour nur auf einer Assoz, sonst warnung<br/>
+	 * - insert guidedTour + icon<br/>
+	 * - active diagram statt open diagram in Fehlermeldungen<br/>
+	 * - Durchnummerierung bei Workflows (leider zählt magicDraw die Aktivitäten nicht zu den Diagrammen)<br/>
+	 * - Transformationen können sich nun aussuchen ob sie auf die vorhandenen Elements oder auf PresentationElements oder beides achten 
+	 *   (Unterschied wenn mehrere PresentationElemente der gleichen Klasse im Diagram sind<br/>
+	 * - Zahlen bei neuen Diagrammen anfügen, wenn original schon existent<br/>
+	 * - Einige Bugs gefixt die Nora oder mir beim Testen aufgefallen sind<br/>
+	 * - Refactoring: Warnungen beseitigt<br/>
+	 * - Wenn associations ausgewählt aber noch nicht gezeichnet sind und dann ein neues Diagram gezeichnet wird, 
+	 *   kommt es zur Modellinkonsistenz. Das lässt sich laut der open-api-newsgroup (nomagic.products.magicdrawuml.openapi) nicht ändern.<br/>
+	 * - Refactoring im Transformations-enum + Done-Messages die die Funktionalität etwas mehr andeuten (incl Anzahl etc)<br/>
+	 * - alle geschachtelten Elemente werden bei Transformationen durchsucht<br/>
+	 * - Transformation nav -> process flow, Diagramme mit Namen von Process-Klassen erstellen<br/>
+	 * - unterscheidliche transformationen basieren auf überschriebenen Methoden in dem DiagramTransformator-enum<br/>
+	 * - packages werden bei der Transformation nun rekursiv nach Klassen und Assoziationen durchsucht<br/>
+	 * - process flow setName funktioniert nicht -> workaround: session schließen und neu öffnen.. sehr sonderbar <br/>
+	 * - insert index mit Warnungen wegen Multiplizitäten (und bei mehreren Assoziationen auch) und Kopieren selbiger auf die neue Assoziation<br/> 
+	 * - icons für Transformationen überarbeitet <br/>
+	 * - Package Struktur überarbeitet, beide Process Diagramarten kommen in Process und es wird bei der Überprüfung auch auf den Diagramtyp geachtet<br/> 
+	 * - new Process Structure + Flow <br/>
+	 * - simple Navigation -> process structure Transformation, die die vorhandenen Prozessklassen in ein neues Process Diagramm zeichnet. <br/>
+	 * - bei allen menüs bei falschem Diagram eine einmalige Warnung anzeigen (leider nicht ja/nein wg. Nullpointern und doppelten Aufrufen von createElement)<br/>
+	 * - processLinks in die Navigation-Toolbar verschoben. Man könnte die Toolbars auch ganz generieren und die ProcessClass zweimal aufführen, aber das fand ich verwirrend<br/>
+	 * - Überprüfung der Stereotypen der einzufügenden Elemente vs der aktuellen Diagramart in den enums implementiert<br/>
+	 * - Insert Menue hinzugefügt (incl icon)<br/>
+	 * - Refactoren und vereinfachen der Transformationen (z.B. insertStereotype Methode nutzen, die Logik in das TransformationType-Enum auslagern)<br/>
+	 * - insert menu\index: Einfügen erweitern, so dass die Richtungen erkannt werden und man sich ggf die Richtung aussuchen kann<br/>
+	 * - insert menu\index auf mehrere Nav-Assoz erweitern: Auswahl welche Assoz genommen werden und nur auf assoz anbieten<br/>
+	 * - Dank Nora erstmalig eine Lizenz (CPL) fuer das Projekt :)<br/>
+	 * - Konstruktoren vereinheitlicht<br/>
+	 * - Kontext-Submenüs beide _unabhängig_ voneinander anzeigen, einmal auf Klassen, einmal auf Assoziationen und sonst entfernen<br/>
+	 * - Kontextmenü mit Checkboxen für isLandmark und dazu das context submenu von dem contextmenu trennen (Vererbung)<br/>
+	 * - ContainmentTree: Transformationen (je nach diagram-typ anzeigen), das zugehörige selektierte Diagram ermitteln, öffnen etc. Fraglich ist, ob der Menüeintrag für eine Transformation des offenen Diagrams im UWE Menü überhaupt bestehen bleiben soll (beibehalten: Auffälligkeit).<br/>
+	 * - Refactoring: die Pakete hatte Petar etwas sonderbar benannt.. core und manager habe ich in shared und core umbenannt und in shared die sich in den Action-Klassen befindlichen mehrmals genutzten static Methoden gesammelt<br/>
+	 * - Navigation-Context Menü erscheint jetzt exclusiv bei navigation Diagrammen (eigenes Icon)<br/>
+	 * - Problem der Tag-Boolean Doppelt-besetzung, gelöst<br/>
+	 * - Rechtsklick auf Klassen => set IS_HOME/isLandmark bei Klassen die es unterstützen (Navigation etc)<br/>
+	 * - Fragen umformuliert wegen Ja-Standard bei den Antworten (und keine Möglichkeit das zu ändern)<br/>
+	 * - GUI verschönert und properties-file schöner gemacht, in dem alternative getDisplayName-Sets eingeführt wurden<br/>
+	 * - Property Klassen und Property Namen per GUI abfragen<br/>
+	 * - Standardeigenschaft suppress structure von Pres Classes (schön wärs, geht leider nicht durch API, aber workaround gefunden) <br/>
+	 * - Zu den Properties gehörige Shortcuts und das Anzeigeverhalten in den Toolbars aus dem MagicUWE.properties file einlesen<br/>
+	 * - Property einfügen mit konfigurierbarer extra Toolbar für Presentation Klassen/Properties einbauen <br/>
+	 * - Aleksandar meine Projektarbeit im Zwischenstadion gegeben, er wird seine Einfügungen für sein Plugin deutlich markieren und ein paar Klassen hinzufügen. Das wird später vermutlich wieder integriert. Tja, wohl doch nicht, wurde anders entschieden, auch ok.<br/>
+	 * - ContainmentTree: Contextmenu refactoren und bei new keine Nachfrage nach Paket wenn richtig, sonst schon (puh das war kompliziert)<br/>
+	 * - sensitives hide bei readonly im Browser Contextmenue</br>
+	 * - Query/Index nur bei Navigation Diagram, sonst Warnung -> Benutzerentscheidung<br/>
+	 * - Profilversion v1.7 mit neuen Icons <br/>
+	 * - Icon für presentationGroup gezeichnet<br/>
+	 * - UWE-Menü im ContainmentBrowser -> New Diagram\all new UWE Diagrams<br/>
+	 * - Bei insert query/index Stereotypen auf zweite Assoziation kopieren<br/>
+	 * - UWE Template erneuert<br/>
+	 * - Versionsnummer auf 1.2 geändert
+	 * - Uralt-Bug gefixt: Index/Query einfügen -> Klasse im richtigen Paket<br/>
+	 * - Feinheiten wie MagicUWE.properties + Menü MagicUWE (den Namen kann man jetzt viel öfter verwenden :) )
+	 * - uweMDPlugin in MagicUWE umbenannt (alle auftretenden Strings, alles im Installer und das Package magicUWE)<br/>
+	 * - Javadoc Warnungen eingeschaltet und javadoc Kommentare vervollständigt und dazugeschrieben
+	 * - die Navigation/Process Link Assoziationen gerichtet und ungerichtet anbieten<br/>
+	 * - Refactoring der Stereotypen-darstellung, unterscheiden zwischen Anzeigenamen und Stereotypennamen<br/>
+	 * - Viele, viele Icons gemalt und zur Toolbar, dem Menü und dem Kontextmenü hinzugefügt.<br/>
+	 * - UWE-Help Button im MagicDraw Hilfemenü + Refactoring, allgemeine Klasse um MagicDraw-Menüs etwas hinzuzufügen.<br/>
+	 * - (absolut problemloses Update auf MagicDraw Version 15.1)<br/>
+	 * - Refactoring: DiagramTransformator erstellt seine Elemente nicht erst in das Root und verschiebt sie nacher, sondern machts gleich richtig. Funktionen besser gekapselt.<br/>
+	 * - bei Transformationen fragen ob es in das Standard-Package für Ziel-Diagramme soll, erst bei Nein -> Auswahl.<br/>
+	 * - Provisorisches Standard-Packages Menü in die finale Version überführt, es wird getestet ob die Packages bereits existieren und es wird immer die gleiche Funktion zur Erstellung verwendet.<br/>
+	 * - Gibt es kein UWE-Paket für das neue Diagram aus dem Menü, fragen ob sie erstellt werden soll oder obs dahin soll was momentan aktiv ist.<br/>
+	 * - Bug gefixt, die Menü Items werden jetzt alle richtig ein/ausgeblendet, ein paar erbten fälschlicherweise von NMAction<br/>
+	 * - Große Teile nicht benutzten Code rausgeworfen.. 2 Mal je 2 Toolbar Klassen zusammengeführt<br/>
+	 * - Bug gefixt, dass man in der Toolbar nach zweimaligem Klicken auf einen Link eine Modellinkonsistenz bekommen hat.<br/>
+	 * - Toolbar umgebaut (Zwischenüberschriften + Trennung von Classes und Assoziationen)<br/>
+	 * - Bug gefixt (falsche Kategorisierung von ProcessLink)<br/>
+	 * - Menu Item für Standard-UWE Packages (provisorisch)<br/>
+	 * - Mnemonics zu Menus hinzugefügt<br/>
+	 * - festgestellt dass fast alle Konstanten in GlobalConstants bei richtigem Gebrauch nur in einer Methode vorkommen und selbige entsprechend wieder zurückgeführt<br/>
+	 * - Refactoring: Packagestruktur und TransformationAction refactored, bei letzterer den TreeSelector in eine extra Klasse ausgelagert<br/>
+	 * - Nochmal großes Refactoring, UWEDiagrams komplett in Enums, Klassen werden nicht benötigt weil wir in MD keinen neuen Diagramtyp einführen<br/>
+	 * - Mailadressen in allen Texten durch uwe-Mailadresse ersetzt<br/>
+	 * - Icons aus Profil-Stereotypen in Toolbar laden (Nachteil: Dgs dürfen nicht schon offen sein, außerdem sind die Icons momentan zu groß und können nicht resized werden)<br/>
+	 * - Transformations-Bug fixen, Assoziationen dürfen in MagicDraw nur erzeugt werden, wenn sie auch verwendet werden (also verknüpft)<br/> 
+	 * - Bugs entfernen die entstehen wenn man das Projekt wechselt (activeDiagram sparsamer verwenden)<br/>
+	 * - Profil laden- Frage bei Projektstart sofern nicht geladen, geprüft wird nicht, aber bei Stereotypen nullpointer abgefangen (sowieso nötig)<br/> 
+	 * - Man darf das Ergebnis der Transformation nicht in ein read-only Package speichern<br/>
+	 * - Modaler JDialog für den Auswahldialog, behebt den Bug mit wechselndem aktivem Diagram während der Paketauswahl für die Transformation<br/>
+	 * - enums mit Konstruktoren versehen, macht den Code übersichtlicher<br/>
+	 * - selbige Shortcuts in das properties-File ausgelagert, funktioniert wunderbar, der User kann Buchstaben angeben und muss keinen Ascii Code wissen<br/>
+	 * - Shortcuts für Menüs in Stereotypen-Enums ausgelagert und damit den Bug gefixt, dass alle Menüs den gleichen Shortcut haben (Interface für enums)<br/>
+	 * - Nun sollte das Plugin an Profilversion v1.7 angepasst sein :-)<br/>
+	 * - Alle hide-Stereotyp Codefragmente entfernen, (sie funktionierten nicht), und es wird jetzt einfach das genommen was der user als Standard eingestellt hat<br/>
+	 * - Bug beim Laden des UWE Profils gefixt, auch da bezweifel ich, dass das je so funktionierte wie es sollte (ohne das Profil nachzuladen, weil offensichtlich übersehen wurde es richtig hinzuzufügen)<br/>
+	 * - InsertQuery/Index funktioniert jetzt auch mit dem neuen magicDraw (ich bezweifel auch, dass es vorher je ging) <br/>
+	 * - Klassen die nie gebraucht werden entfernt<br/>
+	 * - Icons für die Transformationen werden jetzt auch angezeigt<br/>
+	 * - Standard Klasse ist jetzt wieder Standard-Klasse ohne Stereotypen, man darf den user nicht für blöd verkaufen<br/>
+	 * - Anpassung an das UWEProfil v1.7.. dazu erstmal: UWEStereotype~ Enums eingeführt, PluginManager refactored, To Dos geschrieben ..<br/>  
+	 * - Refactoring von öffentlichen Variablen, private fields, assoz-namen, Sicherheits-Abfragen hinzufügen, javadoc schreiben<br/>
+	 * - Beginnen Klassendiagram zu zeichnen für das Plugin (natürlich in MagicDraw ;) )
+	 * - Diagrammtyp hängt nirgens mehr vom Namen des Diagrams ab, sondern vom ersten parent-package (umfangreiches Refactoring, dadurch auch folgenden Bug gefunden und behoben:) <br/>
+	 * - Stacktrace beim schließen von MagicDraw (properties)<br/>
+	 * - Über Properties jetzt überall nur noch Teile des Super-Package Namens (erstmal nur direkter Container) prüfen<br/>
+	 * - Enums für TransformationType und UWEDiagramType, um durch Auslagerung von Code den Code übersichtlicher zu bekommen
+	 * - PropertyLoader geschrieben, läd die properties aus Datei in die GlobalConstants und kann mit fehlenden Properties umgehen (der package-Vergleich auch mit leer-gesetzten) (die völlig funktionslose alte Klasse DefaultProperty entfernt)<br/>
+	 * - Bug, Transformations zweimal aufzurufen gefixt, weil es Probleme damit gab (nicht-ansprechbare Fenster)<br/>
+	 * - Transformations: Bug beim Auswählen des root-Packages gefixt (nun wird erst ausgewählt und dann das Diagram erzeugt+verschoben)<br/>
+	 * - null-pointer bei Transformation menüs, wenn kein Dg offen durch Fehlermeldung ersetzt<br/>
+	 * - MessageWriter neugeschrieben (mehr funktionalität, übersichtlicher): per Delegation ein gleichzeitiges logfile-Schreiben ermöglicht (statisch, mit Fehlerbehandlungen)<br/>
+	 * - Hilfe zum debuggen mit eclipse + logfile in build.xml geschrieben<br/>
+	 * - einige Warnungen in eclipse eingeschaltet und dementsprechend refactored (besonders logger)<br/>
+	 * - Das diagrams-Paket komplett refactored (abstract-Klasse + enum)<br/>
+	 * - MD15.0-Bibliotheken eingebunden<br/>
+	 * - Projekt für beliebige Betriebssysteme portierbar gemacht (build.properties, unabhängiger .classpath, erstellen des izpackinstallers über ant etc)<br/>
+	 * - IzPack Installer verschönert (auch readme), files werden ohne .svn Ordner kopiert, die englische Sprachdatei ist angepasst<br/>
+	 * - unnötige libs (also MagicDraw jars) aussortiert<br/>
+	 * - build.xml zur automatischen jar und javadoc Erstellung, MagicDraw Ausführung und Installationsordnerbefüllung<br/>
+	 * - etwas schönere Information bzgl Autor / Betreuer<br/>
+	 * - Paketinformationen im Javadoc (package-info.java) für jedes package angelegt<br/>
+	 * - Das Projekt ist jetzt utf-8, CodeFormatter mit Zeilenumbruch bei 120 Zeichen<br/>
+	 * - Tippfehler in Kommentaren fixen (mein eclipse hat englische Rechtschreibprüfung) ;)<br/>
+     * - Den endlos langen de.ifi.pst... pfad in uweMDPlugin umbenannt und konsequent das Plugin uweMDPlugin genannt<br/>
+     * - In dem eclipse-Projekt ist jetzt nur noch was man braucht, izpack installiert man besser extra<br/>
+     * - fuer den Installer gibt es einen Abschnitt in der install.xml in dem steht, wie man damit zu einem Installer fuer uweMDPlugin kommt <br/>
+     * - zu entwickelnde arbeits-Version auf 1.1 gesetzt und auch installerverzeichnis bzgl der Umbenennungen (Pfad, Version) angepasst<br/>
+     * - MD14.0-Bibliotheken eingebunden<br/>
+     * 
+	 * <p><i><center>--- Übergabe des Projekts an Marianne Busch (Projektarbeit) ---</center></i></p>
+	 * 
+	 * 	- icons auf transparente background setzten<br/>
+	 * 	- bei der transformation wird bei klassen mit mehreren ausgehenden und eingehenden relationen eine der relationen
+	 * 		falsch kopiert<br/>
+	 * 	- rollen namen werden auch kopiert<br/>
+	 * 	3. bei Cont.2Nav und Nav2Pres. transformation soll ein packageBrowser aufpopen und der user auswaehlen koennen wohin er
+	 * 		die transformierte elemente speichern will<br/>
+	 * 	- Agregation, Genaralis., Multiplizitaeten werden erhalten<br/>
+	 * 	- Agreg. oder Komp. und bidirektionale Assoc. wurde in eine Agr.(bzw. Komp.) mit
+	 *  	isNavigable an gegenueberliegende Ende.<br/>
+	 *  - bei transformationen werden nur die klassen erzeugt die tatsaechlich transformiert werden. alle anderen werden ignoriert.<br/>
+	 * 	- bei der assoc. stereotypes richtig nach class zuweisen. (konfigurierbar im uwePlugin.properties)<br/>
+	 * 	- UseCase Diagram unter UWE und dort Navigation hinzufuegen -- es geht nicht, nicht erlaubt<br/>
+	 * 	- bei der default Stereotypen generel werden die nicht angezeigt<br/>
+	 *	- profile uielement = element <br/>
+	 * 	11. In Content werden die Klassen ausgewaehlt die zu transformieren sind und in einen neuen Con. D. kopiert von 
+	 * dort in Nav. d. transformiert.<br/>
+	 * 	7. UWE Toolbar strukturieren nach metamodel pakete ?!<br/>
+	 * 	- elemente aus class rusnehmen und in der toolbar noch einordnen<br/>
+	 *	- UWE Menu nach Analyze in main menu verschieben <br/>
+	 * 	6. UWEProfile bei Presentation (Button erbt von Presen. Class., wenn es nicht geht von Class) > gilt fuer alle Pres. Ele.<br/>
+	 * 	- aufpassen bei abstracten Klassen in der Diagramm Toolbar Menu<br/>
+	 * 	4. Relations aus Content bei UWEProfile in die WebRE verschieben. Content bleibt leer<br/>
+	 *	9. Toolbar, alle uwes aus Association rausnehmnen und in die UWE verschieben und achten was dort bleibt (external, nav. und process link!!)
+	 *    Query ist Class!<br/>
+	 * 	8. die transformations aus der toolbar rausnehmen und in die UWE-Menu verschieben.	<br/>
+	 * 	5. Toolbar in Class (Query, und alle Presentation Elements)<br/>
+	 *	1. Access Primitve, Node, Link,..  <<abstract>> nur als stereotype<br/>
+	 *	- richtiges setzen des Stereotyps bei der Links (ziel Klasse!!) und allgemein Attribute sind Property!<br/>
+	 *	- default Stereotypen fuer Links aus der Properties Datei auslesen<br/>
+	 * 	- bei erzeugen von Associationen ist durchgestrichenne Linie verwendet?!? (navigable auf true - aber man kann es nicht setzen.!)<br/>
+	 *  - reicht es wenn die zu erzeugenden Elemente nur unter "Class Elements" angezeigt
+	 *	werdene, oder soll auch einen extra SubMenu gezeigt werden? >> beides<br/>
+	 * 	- automatisches default setzen des Stereotyps bei der Attributen!	<br/>
+	 * 	- richtiges platzieren der neuen Class und Association Stereotype fuer die erzeugen
+	 * 	von neuen Objekten in der "Classen Diagram Toolbar"<br/>
+	 *	- automatisches default setzen des Stereotyps anhand von actives Diagram (von Classen
+	 *		und Associations)<br/>
+	 * 	- laden von den gleichen UWE_Profile aus der "Template" und "Load Module.." Menus. <br/>
+	 * 
+	 * <p><i><center>--- Erstellung des Projekts von Petar Blagoev (Diplomarbeit) ---</center></i></p>
+	 */
+	@SuppressWarnings("unused")
+	private void Done(){
+		// not for execution
+	}
+}

@@ -1,0 +1,76 @@
+package magicUWE4SDE;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * Conversions. Suffix "Back" means "Back from server". This class is used in
+ * the Client and the Server.
+ * 
+ * @author Christian Kroiss
+ * @author Marianne Busch
+ */
+public class JSONUtils {
+	public static String getString(JSONObject obj, String key, String defValue) {
+		String s = null;
+		try {
+			s = obj.getString(key);
+		} catch (JSONException e) {
+			return defValue;
+		}
+		return s;
+	}
+
+	public static <T extends Enum<T>> T getEnumLiteral(String key, Class<T> cl, T defaultValue) {
+		T result = null;
+		try {
+			result = Enum.valueOf(cl, key);
+		} catch (Exception e) {
+			return defaultValue;
+		}
+		return result;
+	}
+
+	public static String loadStringFromFile(File file) throws IOException {
+		BufferedReader r = null;
+
+		r = new BufferedReader(new FileReader(file));
+		StringBuilder sb = new StringBuilder();
+		char[] buf = new char[1024];
+		int count = 0;
+		while ((count = r.read(buf)) > 0) {
+			sb.append(buf, 0, count);
+		}
+
+		return sb.toString();
+
+	}
+
+	public static JSONObject loadJSONFromFile(File file) throws IOException, JSONException {
+
+		String s = loadStringFromFile(file);
+
+		JSONObject o = new JSONObject(s);
+
+		return o;
+	}
+
+	public static String readStringWithMaxLength(BufferedReader reader, int maxLength) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		int cc = 0;
+		char[] buf = new char[1024];
+
+		while ((cc = reader.read(buf, 0, Math.min(maxLength - sb.length(), buf.length))) > 0) {
+
+			sb.append(buf, 0, cc);
+
+		}
+		return sb.toString();
+	}
+
+}

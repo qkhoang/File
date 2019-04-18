@@ -1,0 +1,33 @@
+First steps with the MagicUWE code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+build.os.properties.template and Template.classpath are templates for
+build.os.properties and .classpath.
+Please copy and adjust both files and don't commit them to the SVN. 
+(eventually you have to delete an existing .classpath file first and 
+after you renamed them you sometimes have to SVN-revert them)
+
+Set MDRAW_16_HOME eclipse project variable to your MagicDraw path.
+
+"res" includes all files for the installation of the plugin
+IzPack (to bild an installer): http://izpack.org/
+
+"build.xml" is an ant script with self-explanatory target names
+(The system variable JAVA_HOME has to point to a jdk installation!)
+- Execute ant target buildInstallerWithoutJavadocAndSources
+- install res/MagicUWEInstaller/MagicUWEversionInstaller.jar in your MagicDraw directory
+- afterwards you can use e.g. execUpdatedMagicDrawWithProject if you only change the code
+  and not the plugin files in res/MagicUWEInstaller/plugins.
+- if you want to distribute the plugin, you can use
+  o buildInstallerWithoutJavadocAndSources (using IzPack) or
+  o createZipForMagicDrawResourceManager (if you want to use a zipfile for the MagicDraw Resource/Plugin Manager)
+  (the result jar or zip file is located in res/MagicUWEInstaller)
+
+Information about MagicDraw's OpenAPI can be found 
+- in the openapi folder in the MagicDraw directory
+- in MagicDraw's OpenAPI Forum: https://community.nomagic.com/programmatic-extendibility-f26.html
+
+btw: The init() method is located in src/core/PluginManager.java
+debugging information can be found at the beginning of the build.xml file.
+
+Have fun. :-)

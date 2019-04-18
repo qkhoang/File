@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @author Marianne Busch -->
+
+<!-- by the way: in MagicDraw the logfile is in your home 
+     at .magicdraw_personal/VERSION/md.log by default.
+     You can easily debug this plugin using the log with log4j:
+     Write log4j.logger.magicUWE=DEBUG in MDDirectory/data/debug.properties 
+     
+     You can debug with eclipse debugger: call com.nomagic.magicdraw.Main 
+     with VM-Arguments: -Xmx600M -XX:PermSize=40M -XX:MaxPermSize=150M
+     include the MD jars in "Classpath"\"User Entries"
+     and write the MDDirectory path into the working directory field
+     In this file: turn debug="on" in the "build"-target.-->
+
+<project basedir="." default="copyClassesJarToMagicDraw" name="MTOPlugin">
+    
+    <property file="build.properties"/>
+    <property file="build.os.properties"/> <!-- CREATE and ADJUST that FILE first (see build.os.properties.template)! -->
+    
+    <!-- put output directly in the izpack directory, so you can build the installer, if you want to -->
+    <property name="instJavadoc.dir" location="${installer.dir}/${doc.subdir}"/>
+    <property name="instSrc.dir" location="${installer.dir}/${src.subdir}"/>
+    <property name="instMagicUWEJar.file" location="${installer.dir}/${plugin.subdir}/${instMagicUWEJar.filename}"/>
+    
+    <!-- Classes-Jar file can be copied (with target 'copyClassesJarToMagicDraw') 
+    directly in the MagicDraw Profile dir, after you installed the plugin once (e.g. with IzPack installer)
+    (see DEVELOPMENT section) -->
+    <property name="magicDrawUWEPluginJar.file" location="${magicDraw.dir}/${plugin.subdir}/${instMagicUWEJar.filename}"/>
+    
+    <!-- MagicDraw can be executed after compilation -->
+    <property name="magicDraw.bin" location="${magicDraw.dir}/${mduml.relfile}"/>
+    
+    <!-- some Messages -->
+    <property name="done.msg" value="Done."/>
+
+    <!-- Library directory for included jar-files -->
+    <property name="magicDrawLib.dir" location="${magicDraw.dir}/lib"/>
+    
+    <path id="project.classpath">        
+        <pathelement location="${magicDrawLib.dir}/md_foundation_1.0.jar"/>
+        <pathelement location="${magicDrawLib.dir}/md.jar"/>
+        <pathelement location="${magicDrawLib.dir}/md_api.jar"/>
+        <pathelement location="${magicDrawLib.dir}/annotation.jar"/>
+        <pathelement location="${magicDrawLib.dir}/md_common.jar"/>
+        <pathelement location="${magicDrawLib.dir}/md_common_api.jar"/>
+        <pathelement location="${magicDrawLib.dir}/uml2.jar"/>
+        <pathelement location="${magicDrawLib.dir}/javax_jmi-1_0-fr.jar"/>
+        <pathelement location="${magicDrawLib.dir}/jide-action.jar"/>
+        <pathelement location="${magicDrawLib.dir}/log4j-1.2.15.jar"/>
+        <pathelement location="${magicDrawLib.dir}/org.eclipse.emf.common_2.7.0.v20110513-1719.jar"/>
+        <pathelement location="${magicDrawLib.dir}/org.eclipse.emf.ecore_2.7.0.v20110513-1719.jar"/>
+    </path>
+
+    <target name="welcome" if="magicDraw.dir">
+        <echo level="info" message="Welcome. This is the ${ant.project.name} build-file"/>
+        <echo level="info" message="located in ${ant.file}"/>
+    </target>
+
+    <target name="javadoc" depends="welcome, cleanInstallerDocDirContent" if="instJavadoc.dir">
+        <echo level="info" message="Creating javadocs from source files.."/>
+        <mkdir dir="${instJavadoc.dir}"/>
+        <javadoc failonerror="true" windowtitle="MagicUWE" classpathref="project.classpath" destdir="${instJavadoc.dir}" access="private" charset="utf-8">
+            <fileset dir="${src.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+            <doctitle>
+                <![CDATA[<h1>An UWE Plugin for MagicDraw (MagicUWE)</h1>
+            	<a href='http://uwe.pst.ifi.lmu.de/'>UWE-Homepage</a>
+            	<p>Diplomarbeit von Petar Blagoev, Projektarbeit und ein Teil der Diplomarbeit von Marianne Busch, Projektarbeit von Sonja Harrer</p>
+            	<p>Aufgabensteller: Prof. Dr. Alexander Knapp<br> Betreuer: Dr. Nora Koch</p>
+                <a href='mailto:uwe@pst.ifi.lmu.de'>uwe@pst.ifi.lmu.de</a>
+                <h5><a href='http://www.ifi.lmu.de/'> LMU M&uuml;nchen, Institut f&uuml;r Informatik</a></h5>]]>
+			</doctitle>
+            <bottom>
+                <![CDATA[2007/2008 <i>Marianne Busch, Sonja Harrer, Petar Blagoev (<a href='mailto:uwe@pst.ifi.lmu.de'>uwe@pst.ifi.lmu.de</a>)</i>]]>
+			</bottom>
+	    </javadoc>
+	</target>
+	
+	<target name="build" depends="welcome" if="src.dir">
+	    <echo level="info" message="Deleting old class-files.."/>
+	    <delete includeemptydirs="true">
+	        <fileset dir="${classes.dir}" includes="**/*"/>
+	    </delete>
+	    <echo level="info" message="Building ${ant.project.name}-classes from source files.."/>
+	    <mkdir dir="${classes.dir}"/>
+	    <!-- if you delete debug="on", you can't debug with eclipse -->
+	    <javac source="1.6" target="1.6" bootclasspath="${oldJavaRT.path}" classpathref="project.classpath" includeantruntime="false" srcdir="${src.dir}" debug="on" destdir="${classes.dir}" encoding="utf-8" failonerror="yes"/>
+	    <!-- non-class-files must be copied separately-->
+	    <copy todir="${classes.dir}">
+	    	<fileset dir="${src.dir}"> 
+	    		<exclude name="**/*.java"/>
+			</fileset>
+	    </copy>
+	</target>
+	
+	<target name="jarWithClasses" depends="build" if="instMagicUWEJar.file">
+	    <echo level="info" message="Deleting old jar-file.."/>
+	    <delete file="${instMagicUWEJar.file}"/>
+	    <echo level="info" message="Creating jar-file with classes.."/>
+	    <jar destfile="${instMagicUWEJar.file}">
+	        <fileset dir="${classes.dir}"/>
+	        <manifest>
+	            <attribute name="Created-By" value="http://uwe.pst.ifi.lmu.de/toolMagicUWE.html Marianne Busch, Sonja Harrer, Petar Blagoev (uwe@pst.ifi.lmu.de)"/>
+	        </manifest>
+	    </jar>
+	</target>
+	
+    <!-- targets for DEVELOPMENT -->
+	<target name="copyClassesJarToMagicDraw" depends="jarWithClasses" if="magicDrawUWEPluginJar.file"
+	 description="use while developing, this is without javadoc and without copying java files to installer-src-dir. 
+	             Be careful, inst folder can still contain old javadoc and source files afterwards!">
+	    <echo level="info" message="Deleting old jar-file from MagicDraw Plugin folder.."/>
+	    <delete file="${magicDrawUWEPluginJar.file}"/>
+	    <echo level="info" message="copy the classes-Jarfile to MagicDraw.."/>
+	    <copy file="${instMagicUWEJar.file}" tofile="${magicDrawUWEPluginJar.file}"/>
+	    <echo level="info" message="${done.msg}"/>
+	</target>
+    
+    <target name="execUpdatedMagicDraw" depends="copyClassesJarToMagicDraw" if="mduml.relfile"
+     description="same as copyClassesJarToMagicDraw but executes MagicDraw">
+	    <echo level="info" message="Executing MagicDraw.."/>
+        <exec executable="${magicDraw.bin}"/>
+	</target>
+    
+    <target name="execUpdatedMagicDrawWithProject" depends="copyClassesJarToMagicDraw" if="mduml.relfile"
+     description="same as copyClassesJarToMagicDraw but executes MagicDraw and opens Project">
+	    <echo level="info" message="Executing MagicDraw.."/>
+        <exec executable="${magicDraw.bin}">
+            <arg value="${magicDrawProject.path}"/>
+        </exec>    
+	</target>
+    
+    <!-- Preparing INSTALLER Directories -->
+    
+    <target name="cleanInstallerSourceDirContent" if="instSrc.dir">
+	    <echo level="info" message="Deleting the old Installer-sourceFolder and creating an empty one.."/>
+        <delete includeemptydirs="true">
+	        <fileset dir="${instSrc.dir}" includes="**/*"/>
+        </delete>
+	</target>
+	
+    <target name="cleanInstallerDocDirContent" if="instJavadoc.dir">
+        <echo level="info" message="Deleting old javadoc-files.."/>
+        <delete includeemptydirs="true">
+	        <fileset dir="${instJavadoc.dir}" includes="**/*"/>
+        </delete>
+	</target>
+    
+	<target name="prepareInstallerFull" depends="jarWithClasses, javadoc, cleanInstallerSourceDirContent" if="instSrc.dir">
+	    <echo level="info" message="Copying source Folder to Installer-sourceFolder"/>
+	    <copy todir="${instSrc.dir}">
+	    	<fileset dir="${src.dir}"/>
+	    </copy>
+	</target>
+	    
+	<target name="prepareInstallerWithoutJavadocAndSources" depends="jarWithClasses, cleanInstallerDocDirContent, cleanInstallerSourceDirContent" >
+	    <echo level="info" message="Hope you did not forget to DISABLE the doc and src packs in the install.xml!"/>
+	</target>
+    
+    <!-- Build Installer jarfile -->
+    
+    <target name="buildInstallerFull" depends="prepareInstallerFull, execInstallerBuild" if="izpackCompile.path"
+     description="Build izpack Installer (compiles, creates javadoc and copies java files to installer-src-dir, then creates installer)">
+        <echo level="info" message="${done.msg}"/>
+	</target>
+    
+    <target name="buildInstallerWithoutJavadocAndSources" depends="prepareInstallerWithoutJavadocAndSources, execInstallerBuild" if="izpackCompile.path"
+     description="Build izpack Installer (compiles the plugin, empties javadoc-dir and installer-src-dir, then creates installer)">
+        <echo level="info" message="${done.msg}"/>
+	</target>
+    
+    <target name="execInstallerBuild" if="izpackCompile.path">
+	    <echo level="info" message="Build izpack Installer for the MagicUWE.."/>
+        <exec executable="cmd" dir="${installer.dir}" failonerror="true" osfamily="windows">
+            <arg value="/c"/>
+            <arg value="${izpackCompile.path}"/>
+            <arg value="${izpack.param1}"/>
+            <arg value="${izpack.param2}"/>
+            <arg value="${izpack.param3}"/>
+            <arg value="${izpack.param4}"/>
+            <arg value="${izpack.param5}"/>
+        </exec>
+        <exec executable="${izpackCompile.path}" dir="${installer.dir}" failonerror="true" osfamily="unix">
+            <arg value="${izpack.param1}"/>
+            <arg value="${izpack.param2}"/>
+            <arg value="${izpack.param3}"/>
+            <arg value="${izpack.param4}"/>
+            <arg value="${izpack.param5}"/>
+        </exec>
+	</target>
+    
+    <target name="createZipForMagicDrawResourceManager" depends="jarWithClasses, cleanInstallerDocDirContent, cleanInstallerSourceDirContent" if="zipfileForMagicDrawResourceManager.filename"
+        description="Creates the zipfile for the MagicDraw Resource/Plugin Manager" >
+    	<zip destfile="${installer.dir}/${zipfileForMagicDrawResourceManager.filename}" basedir="${installer.dir}" includes="${zipfileSet}" />
+    </target>
+
+</project>

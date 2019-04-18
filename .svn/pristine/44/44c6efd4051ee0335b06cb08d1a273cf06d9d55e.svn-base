@@ -1,0 +1,79 @@
+package magicUWE4SDE;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.URLEncoder;
+
+import magicUWE.shared.MessageWriter;
+
+import org.apache.log4j.Logger;
+import org.json.JSONStringer;
+
+/**
+ * Communication with UWEValidationServer
+ * 
+ * @author Christian Kroiss
+ * @author Marianne Busch
+ */
+public class Communicator {
+	private static final Logger logger = Logger.getLogger(Communicator.class);
+	private static final String UTF8 = "UTF-8";
+
+	private static final String COMMAND_PATH = "path ";
+	private static final String LINE_FEED = "\r\n";
+
+	private static final String COMPLETE = "complete";
+
+	private BufferedReader reader;
+	private BufferedWriter writer;
+	private Socket socket;
+	private String line;
+	private int port;
+
+	public Communicator(int port) {
+		this.port = port;
+		logger.debug("MagicUWE4SDE client will use port: " + port);
+	}
+
+	public void sendAndReceiveOK(String umlFile) throws Exception {
+		connect();
+		MessageWriter.log("Connecting in order to send project file..", logger);
+
+		JSONStringer stringer = new JSONStringer();
+		stringer.object();
+		stringer.key("path");
+		stringer.value(URLEncoder.encode(umlFile, UTF8));
+		stringer.endObject();
+		stringer.toString();
+
+		writer.write(COMMAND_PATH + stringer.toString() + LINE_FEED);
+
+		writer.flush();
+		line = reader.readLine();
+
+		if (line == null) {
+			throw new Exception("Error: Server response is empty.");
+		}
+		if (!line.startsWith(COMPLETE)) {
+			throw new Exception(line);
+		}
+
+		disconnect();
+	}
+
+	private void connect() throws Exception {
+		socket = new Socket(InetAddress.getLocalHost(), port);
+		reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+	}
+
+	private void disconnect() throws Exception {
+		writer.close();
+		reader.close();
+		socket.close();
+	}
+}

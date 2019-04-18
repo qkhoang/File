@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/md_foundation_1.0.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/md.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/md_api.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Program Files/MagicDrawPE_17_0/openapi/docs/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/md_common.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/md_common_api.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/uml2.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/javax_jmi-1_0-fr.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/jide-action.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/plugins/com.nomagic.magicdraw.emfuml2xmi_v3/emfuml2xmi_common.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/plugins/com.nomagic.magicdraw.emfuml2xmi_v3/emfuml2xmi_common_api.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/plugins/com.nomagic.magicdraw.emfuml2xmi_v3/emfuml2xmi_v3.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME/plugins/com.nomagic.magicdraw.emfuml2xmi_v3/emfuml2xmi_v3_api.jar"/>
+	<classpathentry kind="var" path="MDRAW_HOME"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

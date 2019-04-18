@@ -1,0 +1,48 @@
+package magicUWE.actions.menubar;
+
+import java.awt.event.ActionEvent;
+
+import magicUWE.settings.GlobalConstants;
+import magicUWE4SDE.SDEClient;
+
+import com.nomagic.magicdraw.actions.MDAction;
+import com.nomagic.magicdraw.core.Application;
+
+/**
+ * This class sends the project file path to the SDE server
+ * 
+ * @author Marianne Busch
+ */
+public class MagicUWE4SDEsendFile extends MDAction {
+
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * AboutUweAction
+	 * 
+	 * @param name
+	 * @param mnemonic
+	 * @param group
+	 */
+	public MagicUWE4SDEsendFile(String name, int mnemonic, String group) {
+		super(name, name, mnemonic, group);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Boolean result = Application
+				.getInstance()
+				.getGUILog()
+				.showQuestion(
+						"<html><p>Please make sure the SDE (Service Development Environment) is waiting for a response at port "
+								+ GlobalConstants.SDE_PORT
+								+ ".</p><p>&nbsp;</p>"
+								+ "<p>The <a href=\"http://sde.pst.ifi.lmu.de\">SDE (<i>http://sde.pst.ifi.lmu.de</i>)</a> "
+								+ "is a tool workbench <br/> that handles tools are services that can be published and discovered;<br/>"
+								+ "they provide arbitrary functionality and can be used as-is, or combined defining new services.</p><p>&nbsp;</p>"
+								+ "<p><b>Do you want to continue and export this project and send it to the SDE?</b></p></html>");
+		if (result == true) {
+			(new SDEClient()).sendProjectFilePath();
+		}
+	}
+}
